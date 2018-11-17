@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
-import Map from './map';
+import Map from './Map';
+import FLightPlansList from '../components/FlightPlansList';
 
 class Main extends Component {
   render () {
     return (
-      <div>
+      <div className="Main">
+        <FLightPlansList/>
         <Map/>
       </div>
     )

@@ -7,6 +7,15 @@
   background-color: cyan;
 }
 
+.Main {
+  display: flex;
+}
+
+.FLightPlansList {
+  display: flex;
+  flex-direction: column;
+}
+
 .Map {
   height: 100%;
   width: 50%;
