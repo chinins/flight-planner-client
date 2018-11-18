@@ -1,11 +1,12 @@
 import React from 'react';
+import FlightPlan from './FlightPlan';
 
 function FLightPlansList (props) {
 
   const renderFlightPlans = () => {
     return (
       props.plansArr.map((plan, index) => (
-        <div key={index} plan={plan}>{plan.properties.name}</div>
+        <FlightPlan key={index} plan={plan}/>
       ))
     )
   }
