@@ -13,6 +13,27 @@ class Map extends Component {
       center: [6.142624, 46.201603],
       zoom: 17.5
     });
+
+    const { route } = this.props;
+    this.map.on('load', () => {
+      this.map.addLayer({
+        'id': route.properties.name,
+        'type': 'line',
+        "layout": {
+          "line-join": "round",
+          'line-round-limit': 25,
+          "line-cap": "round",
+        },
+        "paint": {
+            "line-color": "red",
+            "line-width": 3
+        },
+        'source': {
+          'type': 'geojson',
+          'data': route
+        }
+      })
+    })
   }
 
   render () {

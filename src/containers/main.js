@@ -9,7 +9,7 @@ class Main extends Component {
     return (
       <div className="Main">
         <FLightPlansList plansArr={plansArr}/>
-        <Map/>
+        <Map route={plansArr[0]}/>
       </div>
     )
   }
