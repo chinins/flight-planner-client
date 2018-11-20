@@ -15,7 +15,6 @@ class Map extends Component {
       'type': 'line',
       'layout': {
         'line-join': 'round',
-        'line-round-limit': 25,
         'line-cap': 'round',
       },
       'paint': {
@@ -51,13 +50,70 @@ class Map extends Component {
 
       this.addPlan();
 
+      this.map.addSource('new-plan', {
+        'type': 'geojson',
+        'data': {
+          "type": "Feature",
+          "properties": {
+            "name": "new-route"
+          },
+          "geometry": {
+            "type": "LineString",
+            "coordinates": this.state.coords
+          }
+        }
+      })
+
+      this.map.addLayer({
+        'id': 'new-plan',
+        'type': 'line',
+        'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        'paint': {
+            'line-color': 'black',
+            'line-width': 3
+        },
+        'source': 'new-plan'
+      })
+
+      this.map.addLayer({
+        'id': 'new-points',
+        'type': 'circle',
+        'source': 'new-plan',
+        'paint': {
+          'circle-color': 'black'
+        }
+      })
     });
+
+    this.map.on('click', e => {
+      const { lng, lat } = e.lngLat;
+      console.log(lng, lat);
+      const coords = this.state.coords.slice();
+      coords.push([lng, lat])
+      console.log(coords);
+      this.setState({ coords })
+
+    })
   }
 
   componentDidUpdate (prevProps) {
     if (prevProps !== this.props) {
       this.map.getSource('flight-plan').setData(this.props.plan);
     }
+
+    this.map.getSource('new-plan').setData({
+      "type": "Feature",
+      "properties": {
+        "name": "new-route"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": this.state.coords
+      }
+    });
   };
 
   render () {
