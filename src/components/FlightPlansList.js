@@ -9,7 +9,7 @@ function FLightPlansList (props) {
 
   const renderFlightPlans = () => {
     return (
-      props.plansArr.map((plan, index) => (
+      props.plans.map((plan, index) => (
         <FlightPlan key={index} plan={plan} onPlanSelect={displayPlan}/>
       ))
     )

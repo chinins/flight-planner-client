@@ -40,6 +40,7 @@
 }
 
 .FlightPlan {
+  cursor: pointer;
   background-color: white;
   padding: 10px;
   margin: 10px 0;

@@ -9,53 +9,50 @@ class Map extends Component {
   }
   map = {};
 
-  lineString = {
-    "type": "Feature",
-    "properties": {
-      "name": `${name}`
-    },
-    "geometry": {
-      "type": "LineString",
-      "coordinates": coordinates
-    }
+  addSource = (source, name, coordinates) => {
+    this.map.addSource(source, {
+      'type': 'geojson',
+      'data': {
+        "type": "Feature",
+        "properties": {
+          "name": `${name}`
+        },
+        "geometry": {
+          "type": 'LineString',
+          "coordinates": coordinates
+        }
+      }
+    });
   };
 
-  lineString = {
-    "type": "Feature",
-    "properties": {
-      "name": `${name}`
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": coordinates
-    }
-  };
-
-
-  addPlan = () => {
+  addLineLayer = (id, source, ifNew) => {
+    const color = ifNew ? 'black' : 'red';
     this.map.addLayer({
-      'id': 'flight-plan',
+      'id': `${id}`,
       'type': 'line',
       'layout': {
         'line-join': 'round',
         'line-cap': 'round',
       },
       'paint': {
-          'line-color': 'red',
+          'line-color': `${color}`,
           'line-width': 3
       },
-      'source': 'flight-plan'
-    });
-
-    this.map.addLayer({
-      'id': 'flight-points',
-      'type': 'circle',
-      'source': 'flight-plan',
-      'paint': {
-        'circle-color': 'red'
-      }
+      'source': `${source}`
     })
-  }
+  };
+
+  addPointLayer = (id, source, ifNew) => {
+    const color = ifNew ? 'black' : 'red';
+    this.map.addLayer({
+      'id': `${id}`,
+      'type': 'circle',
+      'source': `${source}`,
+      'paint': {
+        'circle-color': `${color}`
+      }
+    });
+  };
 
   componentDidMount () {
     this.map = new mapboxgl.Map({
@@ -65,56 +62,18 @@ class Map extends Component {
       zoom: 17
     });
 
-
+    const { name, coordinates } = this.props.plan;
     this.map.on('load', () => {
-      this.map.addSource('flight-plan', {
-        'type': 'geojson',
-        'data': this.props.plan,
-      });
 
-      this.addPlan();
+      this.addSource('flight-plan', name, coordinates)
+      this.addLineLayer('flight-lines', 'flight-plan', false);
+      this.addPointLayer('flight-points', 'flight-plan', false);
 
-      this.map.addSource('new-plan', {
-        'type': 'geojson',
-        'data': {
-          "type": "Feature",
-          "properties": {
-            "name": "new-route"
-          },
-          "geometry": {
-            "type": "LineString",
-            "coordinates": this.state.coords
-          }
-        }
-      })
+      this.addSource('new-plan', this.props.newPlanName, this.state.coords);
+      this.addLineLayer('new-lines', 'new-plan', true);
+      this.addPointLayer('new-points', 'new-plan', true);
 
-      this.map.addLayer({
-        'id': 'new-plan',
-        'type': 'line',
-        'layout': {
-          'line-join': 'round',
-          'line-cap': 'round',
-        },
-        'paint': {
-            'line-color': 'black',
-            'line-width': 3
-        },
-        'source': 'new-plan'
-      })
-
-      this.map.addLayer({
-        'id': 'new-points',
-        'type': 'circle',
-        'source': 'new-plan',
-        'paint': {
-          'circle-color': 'black'
-        }
-      })
     });
-
-    // const onClick = (e) => {
-
-    // }
 
     this.map.on('click', e => {
       const { lng, lat } = e.lngLat;
@@ -124,25 +83,32 @@ class Map extends Component {
     });
 
     this.map.on('dblclick', e => {
-      const { lng, lat } = e.lngLat;
-      const coords = this.state.coords.slice();
-      coords.push([lng, lat])
-      this.setState({ coords });
       e.preventDefault();
+      const coords = this.state.coords.slice();
+      coords.pop();
+      this.setState({ coords })
       this.props.onAddCoords(this.state.coords);
       this.setState({ coords: [] });
     })
   }
 
   componentDidUpdate (prevProps) {
-    // if (prevProps !== this.props) {
-      this.map.getSource('flight-plan').setData(this.props.plan);
-    // }
+    const { name, coordinates } = this.props.plan;
+    this.map.getSource('flight-plan').setData({
+      "type": "Feature",
+      "properties": {
+        "name": name
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": coordinates
+      }
+    });
 
     this.map.getSource('new-plan').setData({
       "type": "Feature",
       "properties": {
-        "name": "new-route"
+        "name": this.props.newPlanName
       },
       "geometry": {
         "type": "LineString",

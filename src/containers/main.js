@@ -8,7 +8,7 @@ import Header from '../components/Header';
 
 class Main extends Component {
   state = {
-    // plans: plansArr,
+    plans: plansArr,
     displayedPlan: plansArr[0],
     ifNew: false,
     newPlan: {}
@@ -29,14 +29,15 @@ class Main extends Component {
   };
 
   addCoordinates = (coords) => {
+    const plans = this.state.plans.slice();
     this.setState({
       newPlan: {
         ...this.state.newPlan,
         coordinates: coords
-      }
+      },
     });
-    plansArr.push(this.state.newPlan);
-    console.log('plansArr: ', plansArr);
+    plans.push(this.state.newPlan)
+    this.setState({ plans });
   };
 
   render () {
@@ -45,9 +46,12 @@ class Main extends Component {
         <div className="plans-container">
           <Header/>
           <NewFlightPlan onPlanCreate={this.addPlanName}/>
-          <FLightPlansList plansArr={plansArr} onPlanSelect={this.displayPlan}/>
+          <FLightPlansList plans={this.state.plans} onPlanSelect={this.displayPlan}/>
         </div>
-        <Map plan={this.state.displayedPlan} ifNew={this.state.ifNew} onAddCoords={this.addCoordinates}/>
+        <Map
+          plan={this.state.displayedPlan} ifNew={this.state.ifNew}
+          onAddCoords={this.addCoordinates} newPlanName={this.state.newPlan.name}
+          />
       </div>
     )
   }

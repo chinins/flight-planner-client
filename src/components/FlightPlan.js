@@ -1,7 +1,7 @@
 import React from 'react';
 
 function FlightPlan (props) {
-  const { properties, geometry} = props.plan;
+  const { name, coordinates} = props.plan;
 
   const displayRoute = () => {
     props.onPlanSelect(props.plan);
@@ -9,8 +9,8 @@ function FlightPlan (props) {
 
   return (
     <div className="FlightPlan" onClick={displayRoute}>
-      <div>{properties.name}</div>
-      <div># of points: {geometry.coordinates.length}</div>
+      <div>{name}</div>
+      <div># of points: {coordinates.length}</div>
     </div>
   )
 }
