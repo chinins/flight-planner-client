@@ -22,6 +22,7 @@
   font-size: 150%;
   font-weight: bold;
   padding: 15px;
+  border-bottom: darkgray 1px solid;
 }
 
 .NewFlightPlan {
@@ -31,6 +32,23 @@
   margin-top: 20px;
 }
 
+.text-input {
+  height: 3 0px;
+  margin-right: 20px;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.submit-input {
+  background-color: #0074D9;
+  color: white;
+  border: 2px solid white;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 110%;
+  padding: 5px;
+}
+
 .FLightPlansList {
   display: flex;
   flex-direction: column;
@@ -38,13 +56,22 @@
   margin: 10px auto ;
 }
 
-.FlightPlan {
+.FlightPlan,
+.FlightPlan-active {
   cursor: pointer;
-  background-color: white;
   padding: 10px;
   margin: 10px 0;
   border-radius: 5px;
   border: lightgray 1px solid;
+}
+
+.FlightPlan {
+  background-color: white;
+}
+
+
+.FlightPlan-active {
+  background-color: lightgray;
 }
 
 .Map {

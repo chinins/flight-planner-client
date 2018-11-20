@@ -20,8 +20,11 @@ class NewFlightPlan extends Component {
   render () {
     return (
       <form className="NewFlightPlan" onSubmit={this.submitForm}>
-        <input type="text" placeholder="New flight plan" onChange={this.handleChange} value={this.state.planName}/>
-        <input type="submit" value="Add new flight plan"/>
+        <input
+          type="text" placeholder="New flight plan" className="text-input"
+          onChange={this.handleChange} value={this.state.planName}
+          />
+        <input type="submit" value="Add new plan" className="submit-input"/>
       </form>
     )
   }
