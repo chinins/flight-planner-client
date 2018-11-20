@@ -1,4 +1,5 @@
 const route1 = {
+  'id': 123,
   "type": "Feature",
   "properties": {
     "name": "route1"
@@ -31,9 +32,10 @@ const route1 = {
 };
 
 const route2 = {
+  'id': 456,
   "type": "Feature",
   "properties": {
-    "name": "route1"
+    "name": "route2"
   },
   "geometry": {
     "type": "LineString",

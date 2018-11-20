@@ -5,11 +5,19 @@ import FLightPlansList from '../components/FlightPlansList';
 import plansArr from '../mock';
 
 class Main extends Component {
+  state = {
+    displayedPlan: plansArr[0]
+  }
+
+  displayPlan = (plan) => {
+    this.setState({ displayedPlan: plan })
+  }
+
   render () {
     return (
       <div className="Main">
-        <FLightPlansList plansArr={plansArr}/>
-        <Map route={plansArr[0]}/>
+        <FLightPlansList plansArr={plansArr} onPlanSelect={this.displayPlan}/>
+        <Map plan={this.state.displayedPlan}/>
       </div>
     )
   }

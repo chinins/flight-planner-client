@@ -3,10 +3,14 @@ import FlightPlan from './FlightPlan';
 
 function FLightPlansList (props) {
 
+  const displayPlan = (plan) => {
+    props.onPlanSelect(plan);
+  }
+
   const renderFlightPlans = () => {
     return (
       props.plansArr.map((plan, index) => (
-        <FlightPlan key={index} plan={plan}/>
+        <FlightPlan key={index} plan={plan} onPlanSelect={displayPlan}/>
       ))
     )
   }

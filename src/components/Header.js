@@ -2,7 +2,7 @@ import React from 'react';
 
 function Header () {
   return (
-    <div className="Header">Floght Planner - make your drones work for you</div>
+    <div className="Header">Flight Planner - make your drones work for you</div>
   )
 };
 
