@@ -9,6 +9,29 @@ class Map extends Component {
   }
   map = {};
 
+  lineString = {
+    "type": "Feature",
+    "properties": {
+      "name": `${name}`
+    },
+    "geometry": {
+      "type": "LineString",
+      "coordinates": coordinates
+    }
+  };
+
+  lineString = {
+    "type": "Feature",
+    "properties": {
+      "name": `${name}`
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": coordinates
+    }
+  };
+
+
   addPlan = () => {
     this.map.addLayer({
       'id': 'flight-plan',
@@ -89,12 +112,25 @@ class Map extends Component {
       })
     });
 
+    // const onClick = (e) => {
+
+    // }
+
     this.map.on('click', e => {
       const { lng, lat } = e.lngLat;
       const coords = this.state.coords.slice();
       coords.push([lng, lat])
       this.setState({ coords })
+    });
 
+    this.map.on('dblclick', e => {
+      const { lng, lat } = e.lngLat;
+      const coords = this.state.coords.slice();
+      coords.push([lng, lat])
+      this.setState({ coords });
+      e.preventDefault();
+      this.props.onAddCoords(this.state.coords);
+      this.setState({ coords: [] });
     })
   }
 

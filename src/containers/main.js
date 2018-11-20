@@ -8,7 +8,8 @@ import Header from '../components/Header';
 
 class Main extends Component {
   state = {
-    displayedPlan: plansArr[2],
+    // plans: plansArr,
+    displayedPlan: plansArr[0],
     ifNew: false,
     newPlan: {}
   }
@@ -24,7 +25,19 @@ class Main extends Component {
         name: planName
       }
     });
-  }
+
+  };
+
+  addCoordinates = (coords) => {
+    this.setState({
+      newPlan: {
+        ...this.state.newPlan,
+        coordinates: coords
+      }
+    });
+    plansArr.push(this.state.newPlan);
+    console.log('plansArr: ', plansArr);
+  };
 
   render () {
     return (
@@ -34,7 +47,7 @@ class Main extends Component {
           <NewFlightPlan onPlanCreate={this.addPlanName}/>
           <FLightPlansList plansArr={plansArr} onPlanSelect={this.displayPlan}/>
         </div>
-        <Map plan={this.state.displayedPlan} ifNew={this.state.ifNew}/>
+        <Map plan={this.state.displayedPlan} ifNew={this.state.ifNew} onAddCoords={this.addCoordinates}/>
       </div>
     )
   }
