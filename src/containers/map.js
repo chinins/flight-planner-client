@@ -39,10 +39,13 @@ class Map extends Component {
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/streets-v9',
       center: [6.142624, 46.201603],
-      zoom: 17.5
+      zoom: 17
     });
 
+
     this.map.on('load', () => {
+      console.log(this.props.plan);
+
       this.map.addSource('flight-plan', {
         'type': 'geojson',
         'data': this.props.plan,
@@ -90,19 +93,17 @@ class Map extends Component {
 
     this.map.on('click', e => {
       const { lng, lat } = e.lngLat;
-      console.log(lng, lat);
       const coords = this.state.coords.slice();
       coords.push([lng, lat])
-      console.log(coords);
       this.setState({ coords })
 
     })
   }
 
   componentDidUpdate (prevProps) {
-    if (prevProps !== this.props) {
+    // if (prevProps !== this.props) {
       this.map.getSource('flight-plan').setData(this.props.plan);
-    }
+    // }
 
     this.map.getSource('new-plan').setData({
       "type": "Feature",

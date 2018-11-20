@@ -1,24 +1,42 @@
 .App {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 .Header {
-  background-color: cyan;
+  background: linear-gradient(to left, #7FDBFF, #0074D9);
+  color: #f0ecec;
+  font-size: 150%;
+  font-weight: bold;
+  padding: 15px;
 }
 
 .Main {
   display: flex;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(#0074D9, #7FDBFF);
 }
 
 .FLightPlansList {
   display: flex;
   flex-direction: column;
+  width: 90%;
+  margin: 10px auto ;
+}
+
+.FlightPlan {
+  background-color: white;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: lightgray 1px solid;
 }
 
 .Map {
   height: 100%;
-  width: 50%;
+  width: 60%;
   position: absolute;
   right: 0;
 }

@@ -6,7 +6,7 @@ import plansArr from '../mock';
 
 class Main extends Component {
   state = {
-    displayedPlan: plansArr[0]
+    displayedPlan: plansArr[2]
   }
 
   displayPlan = (plan) => {

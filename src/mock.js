@@ -1,7 +1,7 @@
 const route1 = {
   "type": "Feature",
   "properties": {
-    "name": "route1"
+    "name": "Grand Theatre - back"
   },
   "geometry": {
     "type": "LineString",
@@ -33,7 +33,7 @@ const route1 = {
 const route2 = {
   "type": "Feature",
   "properties": {
-    "name": "route2"
+    "name": "Grand Theatre - front"
   },
   "geometry": {
     "type": "LineString",
@@ -58,6 +58,50 @@ const route2 = {
   }
 };
 
-const plansArr = [route1, route2];
+const route3 = {
+  "type": "Feature",
+  "properties": {
+    "name": "Dufour Statue"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        6.142982840538025,
+        46.20125036267576
+      ],
+      [
+        6.143285930156707,
+        46.20133575840839
+      ],
+      [
+        6.143524646759033,
+        46.201339471263324
+      ],
+      [
+        6.143650710582733,
+        46.20128192198372
+      ],
+      [
+        6.143664121627808,
+        46.20117239254312
+      ],
+      [
+        6.143513917922973,
+        46.20105358069961
+      ],
+      [
+        6.143299341201782,
+        46.20107585793985
+      ],
+      [
+        6.143173277378082,
+        46.201198382599614
+      ]
+    ]
+  }
+};
+
+const plansArr = [route1, route2, route3];
 
 export default plansArr;

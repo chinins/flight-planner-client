@@ -10,7 +10,7 @@ function FlightPlan (props) {
   return (
     <div className="FlightPlan" onClick={displayRoute}>
       <div>{properties.name}</div>
-      <div>{geometry.coordinates}</div>
+      <div># of points: {geometry.coordinates.length}</div>
     </div>
   )
 }
