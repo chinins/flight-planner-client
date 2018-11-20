@@ -44,8 +44,6 @@ class Map extends Component {
 
 
     this.map.on('load', () => {
-      console.log(this.props.plan);
-
       this.map.addSource('flight-plan', {
         'type': 'geojson',
         'data': this.props.plan,
