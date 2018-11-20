@@ -4,22 +4,34 @@ import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2hpbmlucyIsImEiOiJjam4xaHdleWI0a2U4M3FueDgwM2ptN2VtIn0.r0ypAbepxGXZvEwJBR3amg';
 
 class Map extends Component {
+  state = {
+    coords: []
+  }
   map = {};
 
   addPlan = () => {
     this.map.addLayer({
       'id': 'flight-plan',
       'type': 'line',
-      "layout": {
-        "line-join": "round",
+      'layout': {
+        'line-join': 'round',
         'line-round-limit': 25,
-        "line-cap": "round",
+        'line-cap': 'round',
       },
-      "paint": {
-          "line-color": "red",
-          "line-width": 3
+      'paint': {
+          'line-color': 'red',
+          'line-width': 3
       },
       'source': 'flight-plan'
+    });
+
+    this.map.addLayer({
+      'id': 'flight-points',
+      'type': 'circle',
+      'source': 'flight-plan',
+      'paint': {
+        'circle-color': 'red'
+      }
     })
   }
 
