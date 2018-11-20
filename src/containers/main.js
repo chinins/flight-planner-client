@@ -31,6 +31,7 @@ class Main extends Component {
   addCoordinates = (coords) => {
     const plans = this.state.plans.slice();
     this.setState({
+      ifNew: false,
       newPlan: {
         ...this.state.newPlan,
         coordinates: coords
@@ -38,6 +39,7 @@ class Main extends Component {
     });
     plans.push(this.state.newPlan)
     this.setState({ plans });
+    console.log(this.state);
   };
 
   render () {

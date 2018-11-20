@@ -54,6 +54,16 @@ class Map extends Component {
     });
   };
 
+  setVisibility = () => {
+    if (this.props.ifNew) {
+      this.map.setLayoutProperty('flight-lines', 'visibility', 'none');
+      this.map.setLayoutProperty('flight-points', 'visibility', 'none');
+    } else {
+      this.map.setLayoutProperty('flight-lines', 'visibility', 'visible');
+      this.map.setLayoutProperty('flight-points', 'visibility', 'visible');
+    }
+  }
+
   componentDidMount () {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -94,6 +104,7 @@ class Map extends Component {
 
   componentDidUpdate (prevProps) {
     const { name, coordinates } = this.props.plan;
+    this.setVisibility();
     this.map.getSource('flight-plan').setData({
       "type": "Feature",
       "properties": {

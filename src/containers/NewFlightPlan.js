@@ -8,6 +8,7 @@ class NewFlightPlan extends Component {
   submitForm = (e) => {
     e.preventDefault();
     this.props.onPlanCreate(this.state.planName);
+    this.setState({ planName: '' });
   }
 
   handleChange = (e) => {
