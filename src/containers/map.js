@@ -86,19 +86,24 @@ class Map extends Component {
     });
 
     this.map.on('click', e => {
-      const { lng, lat } = e.lngLat;
-      const coords = this.state.coords.slice();
-      coords.push([lng, lat])
-      this.setState({ coords })
+      if (this.props.ifNew) {
+        const { lng, lat } = e.lngLat;
+        const coords = this.state.coords.slice();
+        coords.push([lng, lat])
+        this.setState({ coords })
+
+      }
     });
 
     this.map.on('dblclick', e => {
-      e.preventDefault();
-      const coords = this.state.coords.slice();
-      coords.pop();
-      this.setState({ coords })
-      this.props.onAddCoords(this.state.coords);
-      this.setState({ coords: [] });
+      if (this.props.ifNew) {
+        e.preventDefault();
+        const coords = this.state.coords.slice();
+        coords.pop();
+        this.setState({ coords })
+        this.props.onAddCoords(this.state.coords);
+        this.setState({ coords: [] });
+      }
     })
   }
 
