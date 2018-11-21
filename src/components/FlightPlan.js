@@ -1,16 +1,31 @@
 import React from 'react';
 
 function FlightPlan (props) {
-  const { properties, geometry} = props.plan;
 
   const displayRoute = () => {
     props.onPlanSelect(props.plan);
   }
 
+  const { name, coordinates} = props.plan;
+
+  const displayCoordinates = () => {
+    return (
+      coordinates.map((coords, index) => (
+        <div>{`Point ${index + 1}: [${coords[0]}, ${coords[1]}]`}</div>
+      ))
+    );
+  };
+
   return (
-    <div className="FlightPlan" onClick={displayRoute}>
-      <div>{properties.name}</div>
-      <div># of points: {geometry.coordinates.length}</div>
+    <div className={props.ifActive ? 'FlightPlan-active' : 'FlightPlan'} onClick={displayRoute}>
+      <div className="plan-name">{name}</div>
+      <div className="plan-points">Number of points: {coordinates.length}</div>
+      { props.ifActive &&
+        <div className="plan-coordinates">
+          Coordinates:
+          {displayCoordinates()}
+        </div>
+      }
     </div>
   )
 }
