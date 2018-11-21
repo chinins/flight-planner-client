@@ -28,10 +28,10 @@ class NewFlightPlan extends Component {
           <input type="submit" value="Add new plan" className="submit-input"/>
         </form>
         <div className="section-explain">
-          <p>To add a new drone flight plan:</p>
-          <ul>-Add name</ul>
-          <ul>-Click map to add points</ul>
-          <ul>-To finish, double click the last point</ul>
+          <div>To add a new drone flight plan:</div>
+          <div>- Add name</div>
+          <div>- Click map to add points</div>
+          <div>- To finish, double click the last point</div>
         </div>
       </div>
     )
