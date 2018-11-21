@@ -11,7 +11,7 @@ function FlightPlan (props) {
   const displayCoordinates = () => {
     return (
       coordinates.map((coords, index) => (
-        <div>{`Point ${index + 1}: [${coords[0]}, ${coords[1]}]`}</div>
+        <div key={index}>{`Point ${index + 1}: [${coords[0]}, ${coords[1]}]`}</div>
       ))
     );
   };

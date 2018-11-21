@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FlightPlan from './FlightPlan';
 
 function FLightPlansList (props) {
@@ -22,5 +23,13 @@ function FLightPlansList (props) {
     <div className="FLightPlansList">{renderFlightPlans()}</div>
   )
 }
+
+FLightPlansList.propTypes = {
+  plans: PropTypes.array
+};
+
+FLightPlansList.defaultProps = {
+  items: []
+};
 
 export default FLightPlansList;
