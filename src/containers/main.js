@@ -25,6 +25,7 @@ class Main extends Component {
   addPlanName = (planName) => {
     this.setState({
       ifNew: true,
+      activeIndex: '',
       newPlan: {
         name: planName
       }

@@ -9,7 +9,7 @@ class Map extends Component {
   }
   map = {};
 
-  addSource = (source, name, coordinates) => {
+  addSource = (source, name, type, coordinates) => {
     this.map.addSource(source, {
       'type': 'geojson',
       'data': {
@@ -18,7 +18,7 @@ class Map extends Component {
           "name": `${name}`
         },
         "geometry": {
-          "type": 'LineString',
+          "type": `${type}`,
           "coordinates": coordinates
         }
       }
@@ -64,6 +64,19 @@ class Map extends Component {
     }
   }
 
+  setData = (source, name, type, coordinates) => {
+    this.map.getSource(source).setData({
+      "type": "Feature",
+      "properties": {
+        "name": name
+      },
+      "geometry": {
+        "type": type,
+        "coordinates": coordinates
+      }
+    });
+  }
+
   componentDidMount () {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -75,13 +88,16 @@ class Map extends Component {
     const { name, coordinates } = this.props.plan;
     this.map.on('load', () => {
 
-      this.addSource('flight-plan', name, coordinates)
+      this.addSource('flight-plan', name, 'LineString', coordinates)
       this.addLineLayer('flight-lines', 'flight-plan', false);
       this.addPointLayer('flight-points', 'flight-plan', false);
 
-      this.addSource('new-plan', this.props.newPlanName, this.state.coords);
+      this.addSource('new-plan', this.props.newPlanName, 'LineString', this.state.coords);
       this.addLineLayer('new-lines', 'new-plan', true);
       this.addPointLayer('new-points', 'new-plan', true);
+
+      this.addSource('start-point', 'start-point', 'Point', []);
+      this.addPointLayer('start-point', 'start-point', true);
 
     });
 
@@ -110,27 +126,13 @@ class Map extends Component {
   componentDidUpdate (prevProps) {
     const { name, coordinates } = this.props.plan;
     this.setVisibility();
-    this.map.getSource('flight-plan').setData({
-      "type": "Feature",
-      "properties": {
-        "name": name
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": coordinates
-      }
-    });
+    this.setData('flight-plan', name, 'LineString', coordinates);
 
-    this.map.getSource('new-plan').setData({
-      "type": "Feature",
-      "properties": {
-        "name": this.props.newPlanName
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": this.state.coords
-      }
-    });
+    if (this.state.coords.length === 1) {
+      this.setData('start-point', 'start-point', 'Point', this.state.coords[0])
+    } else this.setData('start-point', 'start-point', 'Point', []);
+
+    this.setData('new-plan', this.props.newPlanName, 'LineString',this.state.coords);
   };
 
   render () {
