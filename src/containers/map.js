@@ -99,34 +99,37 @@ class Map extends Component {
       this.addSource('start-point', 'start-point', 'Point', []);
       this.addPointLayer('start-point', 'start-point', true);
 
+      this.map.on('click', e => {
+        if (this.props.ifNew) {
+          const { lng, lat } = e.lngLat;
+          const coords = this.state.coords.slice();
+          coords.push([lng, lat])
+          this.setState({ coords })
+
+        }
+      });
+
+      this.map.on('dblclick', e => {
+        if (this.props.ifNew) {
+          e.preventDefault();
+          const coords = this.state.coords.slice();
+          coords.pop();
+          this.setState({ coords })
+          this.props.onAddCoords(this.state.coords);
+          this.setState({ coords: [] });
+        }
+      })
+
+      this.map.getCanvas().style.cursor = 'pointer';
     });
-
-    this.map.on('click', e => {
-      if (this.props.ifNew) {
-        const { lng, lat } = e.lngLat;
-        const coords = this.state.coords.slice();
-        coords.push([lng, lat])
-        this.setState({ coords })
-
-      }
-    });
-
-    this.map.on('dblclick', e => {
-      if (this.props.ifNew) {
-        e.preventDefault();
-        const coords = this.state.coords.slice();
-        coords.pop();
-        this.setState({ coords })
-        this.props.onAddCoords(this.state.coords);
-        this.setState({ coords: [] });
-      }
-    })
   }
 
   componentDidUpdate (prevProps) {
     const { name, coordinates } = this.props.plan;
     this.setVisibility();
     this.setData('flight-plan', name, 'LineString', coordinates);
+
+    this.map.getCanvas().style.cursor = this.props.ifNew ? 'crosshair' : 'pointer';
 
     if (this.state.coords.length === 1) {
       this.setData('start-point', 'start-point', 'Point', this.state.coords[0])

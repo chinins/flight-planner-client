@@ -11,7 +11,7 @@ function FlightPlan (props) {
   return (
     <div className={props.ifActive ? 'FlightPlan-active' : 'FlightPlan'} onClick={displayRoute}>
       <div className="plan-name">{name}</div>
-      <div className="plan-points"># of points: {coordinates.length}</div>
+      <div className="plan-points">Number of points: {coordinates.length}</div>
     </div>
   )
 }
