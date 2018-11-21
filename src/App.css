@@ -35,6 +35,7 @@
   align-items: baseline;
   justify-content: center;
   margin-top: 20px;
+  height: 60px;
 }
 
 .text-input {
@@ -61,11 +62,12 @@
   padding: 5px 5px 5px 15px;
 }
 
-.FLightPlansList {
+.FlightPlansList {
   display: flex;
   flex-direction: column;
   width: 90%;
-  margin: 10px auto ;
+  margin: 10px auto;
+  overflow-y: scroll;
 }
 
 .FlightPlan,

@@ -20,7 +20,7 @@ function FLightPlansList (props) {
   }
 
   return (
-    <div className="FLightPlansList">{renderFlightPlans()}</div>
+    <div className="FlightPlansList">{renderFlightPlans()}</div>
   )
 }
 
