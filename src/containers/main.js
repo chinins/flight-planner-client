@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Map from './Map';
+import Map from './map';
 import FLightPlansList from '../components/FlightPlansList';
 import plansArr from '../mock';
 import NewFlightPlan from './NewFlightPlan';
