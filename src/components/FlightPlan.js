@@ -1,28 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class FlightPlan extends Component {
-  state = {
-    ifActive: false,
-    className: this.ifActive ? 'FlightPlan-active' : 'FlightPlan'
+function FlightPlan (props) {
+
+  const displayRoute = () => {
+    props.onPlanSelect(props.plan);
   }
 
-  displayRoute = () => {
-    this.props.onPlanSelect(this.props.plan);
-    this.setState({
-      ifActive: true,
-      className: this.ifActive ? 'FlightPlan-active' : 'FlightPlan'
-    });
-  }
-  render () {
-    const { name, coordinates} = this.props.plan;
+  const { name, coordinates} = props.plan;
 
-    return (
-      <div className={this.state.className} onClick={this.displayRoute}>
-        <div>{name}</div>
-        <div># of points: {coordinates.length}</div>
-      </div>
-    )
-  }
+  return (
+    <div className={props.ifActive ? 'FlightPlan-active' : 'FlightPlan'} onClick={displayRoute}>
+      <div className="plan-name">{name}</div>
+      <div className="plan-points"># of points: {coordinates.length}</div>
+    </div>
+  )
 }
 
 export default FlightPlan;

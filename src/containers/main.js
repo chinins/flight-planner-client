@@ -11,11 +11,15 @@ class Main extends Component {
     plans: plansArr,
     displayedPlan: plansArr[0],
     ifNew: false,
-    newPlan: {}
+    newPlan: {},
+    activeIndex: 0
   }
 
   displayPlan = (plan) => {
-    this.setState({ displayedPlan: plan })
+    this.setState({
+      displayedPlan: plan,
+      activeIndex: this.state.plans.indexOf(plan)
+    });
   }
 
   addPlanName = (planName) => {
@@ -38,8 +42,11 @@ class Main extends Component {
       },
     });
     plans.push(this.state.newPlan)
-    this.setState({ plans });
-    console.log(this.state);
+    this.setState({
+      plans,
+      activeIndex: plans.indexOf(this.state.newPlan),
+      displayedPlan: this.state.newPlan
+    });
   };
 
   render () {
@@ -48,7 +55,10 @@ class Main extends Component {
         <div className="plans-container">
           <Header/>
           <NewFlightPlan onPlanCreate={this.addPlanName}/>
-          <FLightPlansList plans={this.state.plans} onPlanSelect={this.displayPlan}/>
+          <FLightPlansList
+            activeIndex={this.state.activeIndex}
+            plans={this.state.plans} onPlanSelect={this.displayPlan}
+          />
         </div>
         <Map
           plan={this.state.displayedPlan} ifNew={this.state.ifNew}

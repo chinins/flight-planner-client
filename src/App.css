@@ -69,9 +69,12 @@
   background-color: white;
 }
 
-
 .FlightPlan-active {
-  background-color: lightgray;
+  background-color: rgb(169, 228, 251);
+}
+
+.plan-name {
+  font-size: 120%;
 }
 
 .Map {
