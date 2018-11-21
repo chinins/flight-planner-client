@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Map from './Map';
-import FLightPlansList from '../components/FlightPlansList';
+import FlightPlansList from '../components/FlightPlansList';
 import plansArr from '../mock';
 import NewFlightPlan from './NewFlightPlan';
 import Header from '../components/Header';
@@ -54,9 +54,11 @@ class Main extends Component {
     return (
       <div className="Main">
         <div className="plans-container">
-          <Header/>
-          <NewFlightPlan onPlanCreate={this.addPlanName}/>
-          <FLightPlansList
+          <div>
+            <Header/>
+            <NewFlightPlan onPlanCreate={this.addPlanName}/>
+          </div>
+          <FlightPlansList
             activeIndex={this.state.activeIndex}
             plans={this.state.plans} onPlanSelect={this.displayPlan}
           />

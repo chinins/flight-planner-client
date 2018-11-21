@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FlightPlan from './FlightPlan';
 
-function FLightPlansList (props) {
+function FlightPlansList (props) {
 
   const displayPlan = (plan) => {
     props.onPlanSelect(plan);
@@ -24,12 +24,12 @@ function FLightPlansList (props) {
   )
 }
 
-FLightPlansList.propTypes = {
+FlightPlansList.propTypes = {
   plans: PropTypes.array
 };
 
-FLightPlansList.defaultProps = {
+FlightPlansList.defaultProps = {
   items: []
 };
 
-export default FLightPlansList;
+export default FlightPlansList;
