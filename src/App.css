@@ -58,7 +58,7 @@
   border: 1px solid black;
   border-radius: 5px;
   margin: 20px 10px 0 10px;
-  padding: 5px;
+  padding: 5px 5px 5px 15px;
 }
 
 .FLightPlansList {
